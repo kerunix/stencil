@@ -19,7 +19,15 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
+import Database from '@ioc:Adonis/Lucid/Database'
 
 Route.get('/', async () => {
-  return { hello: 'world' }
+  const users = await Database
+    .query() // 👈 gives an instance of select query builder
+    .from('users')
+    .select('*')
+
+  console.log(users)
+
+  return { hello: 'world', users }
 })
