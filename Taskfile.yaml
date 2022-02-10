@@ -3,7 +3,7 @@ version: '2'
 tasks:
   build_dev:
     desc: Builds a dev docker image from the current state of the app
-    cmd: docker build -t apiqure/stencil.dev:latest .
+    cmd: docker build -t lapiqure/stencil.dev:latest .
   start:
     desc: Starts the local development docker container on http://localhost:3333
     cmds:

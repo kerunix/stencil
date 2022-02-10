@@ -23,11 +23,11 @@ import Database from '@ioc:Adonis/Lucid/Database'
 
 Route.get('/', async () => {
   const users = await Database
-    .query() // 👈 gives an instance of select query builder
+    .query()
     .from('users')
     .select('*')
 
-  console.log(users)
+  console.log('users', users)
 
   return { hello: 'world', users }
 })
