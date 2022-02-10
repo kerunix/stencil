@@ -1,14 +1,28 @@
 version: '2'
 
 tasks:
-  build_dev:
+  build:
     desc: Builds a dev docker image from the current state of the app
     cmd: docker build -t lapiqure/stencil.dev:latest .
   start:
     desc: Starts the local development docker container on http://localhost:3333
     cmds:
-      - docker compose up -d
-      # - docker run -p 3333:3333 lapiqure/stencil.dev:latest
-  stop_dev:
+      - docker-compose up -d
+    status:
+      - test -n "$(docker-compose top)"
+  stop:
     desc: Stops the local development docker container
-    cmd: docker stop lapiqure/stencil.dev:latest
+    cmds: 
+      - docker-compose stop
+    status:
+      - test -z "$(docker-compose top)"
+  sh:
+    desc: Get a shell in the main app container
+    deps: [start]
+    cmds:
+      - docker-compose exec app /bin/ash
+  dbmigrate:
+    desc: Runs db migration
+    deps: [start]
+    cmds:
+      - "docker-compose exec app node ace migration:run"

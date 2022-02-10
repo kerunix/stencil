@@ -29,5 +29,5 @@ Route.get('/', async () => {
 
   console.log('users', users)
 
-  return { hello: 'world', users }
+  return { hello: 'tata', users }
 })
